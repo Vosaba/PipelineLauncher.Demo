@@ -14,11 +14,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
 
-    <PackageReference Include="PipelineLauncher" Version="0.9.61" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Stages\Bulk\" />
+    <PackageReference Include="PipelineLauncher" Version="0.9.62" />
   </ItemGroup>
 
 </Project>

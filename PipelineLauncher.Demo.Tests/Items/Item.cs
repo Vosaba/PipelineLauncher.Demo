@@ -1,33 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace PipelineLauncher.Demo.Tests.Items
 {
     public class Item
     {
-        private readonly List<(int ProcessId, string StageName)> _processedBy;
+        public List<(int ProcessId, Type StageType)> ProcessedBy { get; }
         public int Index { get; }
 
         public Item(int index)
         {
             Index = index;
-            _processedBy = new List<(int ProcessId, string StageName)>();
+            ProcessedBy = new List<(int ProcessId, Type StageType)>();
         }
 
-        public Item(int index, List<(int ProcessId, string StageName)> processedBy)
+        public Item(int index, List<(int ProcessId, Type StageType)> processedBy)
         {
             Index = index;
-            _processedBy = processedBy;
+            ProcessedBy = processedBy;
         }
 
-        public void Process(int processId, string stageName)
+        public void Process(Type stageType)
         {
-            _processedBy.Add((processId, stageName));
+            ProcessedBy.Add((Thread.CurrentThread.ManagedThreadId, stageType));
         }
 
         public override string ToString()
         {
-            var values = _processedBy.Select(x => $"{x.StageName}:{x.ProcessId}").ToArray();
+            var values = ProcessedBy.Select(x => $"{x.StageType.Name} : {x.ProcessId}").ToArray();
             return $"{nameof(Item)}#{Index}: '{{{string.Join("} -> {", values)}}}';";
         }
     }
