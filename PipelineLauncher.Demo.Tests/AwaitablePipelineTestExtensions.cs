@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PipelineLauncher.Demo.Tests.PipelineSetup;
+using System.Collections;
 
 namespace PipelineLauncher.Demo.Tests
 {
@@ -24,7 +25,8 @@ namespace PipelineLauncher.Demo.Tests
 
         public static void ProcessAndPrintResults<TInput, TOutput>(
             this (PipelineTestBase PipelineTest, IAwaitablePipelineRunner<TInput, TOutput> PipelineRunner) testAndRunner, 
-            IEnumerable<TInput> items)
+            IEnumerable<TInput> items,
+            bool printInputItems = false)
         {
             var (pipelineTest, pipelineRunner) = testAndRunner;
 
@@ -35,7 +37,7 @@ namespace PipelineLauncher.Demo.Tests
             var result = pipelineRunner.Process(items).ToArray();
 
             // Print elapsed time and result
-            pipelineTest.StopTimerAndPrintResult(result);
+            pipelineTest.StopTimerAndPrintResult(printInputItems ? (IEnumerable) items : result);
         }
     }
 }

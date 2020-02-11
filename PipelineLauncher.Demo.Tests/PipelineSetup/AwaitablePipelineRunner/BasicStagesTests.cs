@@ -8,9 +8,9 @@ using Xunit.Abstractions;
 
 namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
 {
-    public class StagesTests : PipelineTestBase
+    public class BasicStagesTests : PipelineTestBase
     {
-        public StagesTests(ITestOutputHelper output) : base(output) { }
+        public BasicStagesTests(ITestOutputHelper output) : base(output) { }
 
         [Fact]
         public void Single_Stage()
@@ -106,7 +106,8 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
                 .Stage(new Stage())
                 .BulkStage(new BulkStage_1())
                 .Stage(new Stage_Item_To_Item2())
-                .Stage(new Stage_Item2_To_Item());
+                .Stage(new Stage_Item2_To_Item())
+                .BulkStage(new BulkStage_Item_To_Object());
 
             // Make pipeline from stageSetup
             var pipelineRunner = pipelineSetup.CreateAwaitable();
