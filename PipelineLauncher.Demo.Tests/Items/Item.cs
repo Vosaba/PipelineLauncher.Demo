@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Threading;
 
 namespace PipelineLauncher.Demo.Tests.Items
@@ -30,7 +32,10 @@ namespace PipelineLauncher.Demo.Tests.Items
         public override string ToString()
         {
             var values = ProcessedBy.Select(x => $"{x.StageType.Name} : {x.ProcessId}").ToArray();
-            return $"{nameof(Item)}#{Index}: '{{{string.Join("} -> {", values)}}}';";
+            return $"{nameof(Item)}#{Index}: {{ {string.Join(" } -> { ", values)} }};";
         }
+
+        [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]
+        public static extern int GetCurrentProcessorNumber();
     }
 }

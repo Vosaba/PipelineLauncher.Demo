@@ -3,13 +3,15 @@ using PipelineLauncher.Stages;
 
 namespace PipelineLauncher.Demo.Tests.Stages.Single
 {
-    public class Stage_Operation_Skip : Stage<Item, string>
+    public class Stage_Item2_To_Item : Stage<Item2, Item>
     {
-        public override string Execute(Item item)
+        public override Item Execute(Item2 item2)
         {
+            var item = item2.GetItem();
+
             item.Process(GetType());
 
-            return Skip(item);
+            return item;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace PipelineLauncher.Demo.Tests.Stages.Single
 {
     public class Stage_Async : Stage<Item>
     {
-        public async override Task<Item> ExecuteAsync(Item item)
+        public override async Task<Item> ExecuteAsync(Item item)
         {
             await Task.Delay(1000);
             item.Process(GetType());

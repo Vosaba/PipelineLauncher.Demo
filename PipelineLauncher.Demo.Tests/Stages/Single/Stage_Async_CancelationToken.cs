@@ -7,7 +7,7 @@ namespace PipelineLauncher.Demo.Tests.Stages.Single
 {
     public class Stage_Async_CancelationToken : Stage<Item>
     {
-        public async override Task<Item> ExecuteAsync(Item item, CancellationToken cancellationToken)
+        public override async Task<Item> ExecuteAsync(Item item, CancellationToken cancellationToken)
         {
             await Task.Delay(1000, cancellationToken);
             item.Process(GetType());

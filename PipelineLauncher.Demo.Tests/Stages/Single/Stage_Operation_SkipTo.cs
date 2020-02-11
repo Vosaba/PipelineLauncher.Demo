@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using PipelineLauncher.Demo.Tests.Items;
+﻿using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
 
 namespace PipelineLauncher.Demo.Tests.Stages.Single

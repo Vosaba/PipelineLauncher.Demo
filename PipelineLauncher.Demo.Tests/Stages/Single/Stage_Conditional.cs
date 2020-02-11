@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using PipelineLauncher.Abstractions.Stages;
+﻿using PipelineLauncher.Abstractions.Stages;
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
 

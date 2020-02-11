@@ -2,7 +2,7 @@
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
 
-namespace PipelineLauncher.Demo.Tests.Stages.Single
+namespace PipelineLauncher.Demo.Tests.Stages.Bulk
 {
     public class BulkStage : BulkStage<Item>
     {

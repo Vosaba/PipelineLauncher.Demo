@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using PipelineLauncher.Demo.Tests.Items;
+﻿using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace PipelineLauncher.Demo.Tests.Stages.Single
+namespace PipelineLauncher.Demo.Tests.Stages.Bulk
 {
     public class BulkStage_Item_To_Object : BulkStage<Item, object>
     {

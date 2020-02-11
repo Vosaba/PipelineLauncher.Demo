@@ -1,11 +1,11 @@
-﻿using PipelineLauncher.Demo.Tests.Items;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using PipelineLauncher.Demo.Tests.Items;
 using Xunit.Abstractions;
 
-namespace PipelineLauncher.Demo.Tests.Tests
+namespace PipelineLauncher.Demo.Tests.PipelineSetup
 {
     public abstract class PipelineTestBase
     {

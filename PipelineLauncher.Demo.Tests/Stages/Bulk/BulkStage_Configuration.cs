@@ -1,9 +1,9 @@
-﻿using PipelineLauncher.Abstractions.PipelineStage.Configurations;
+﻿using System.Collections.Generic;
+using PipelineLauncher.Abstractions.PipelineStage.Configurations;
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
-using System.Collections.Generic;
 
-namespace PipelineLauncher.Demo.Tests.Stages.Single
+namespace PipelineLauncher.Demo.Tests.Stages.Bulk
 {
     public class BulkStage_Configuration : BulkStage<Item>
     {
