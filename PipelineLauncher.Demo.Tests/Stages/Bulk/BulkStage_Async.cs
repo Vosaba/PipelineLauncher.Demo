@@ -8,7 +8,7 @@ namespace PipelineLauncher.Demo.Tests.Stages.Bulk
     public class BulkStage_Async : BulkStage<Item>
     {
         // TODO: Use new BulkStage with IAsyncEnumerable
-        public override async Task<IEnumerable<Item>> ExecuteAsync(IEnumerable<Item> items)
+        public override async Task<IEnumerable<Item>> ExecuteAsync(Item[] items)
         {
             await Task.Delay(1000);
 

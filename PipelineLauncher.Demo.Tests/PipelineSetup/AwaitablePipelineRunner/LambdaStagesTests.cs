@@ -45,7 +45,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
 
                     return item;
                 })
-                .BulkStage(async items =>
+                .BulkStage(async (items) =>
                 {
                     await Task.Delay(1000);
                     foreach (var item in items)
@@ -53,7 +53,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
                         item.Process(GetType());
                     }
 
-                    return items;
+                    return (IEnumerable<Item>)items;
                 })
                 .Stage<Stage>();
 

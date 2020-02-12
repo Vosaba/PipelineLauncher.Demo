@@ -7,7 +7,7 @@ namespace PipelineLauncher.Demo.Tests.Stages.Bulk
 {
     public class BulkStage_Configuration : BulkStage<Item>
     {
-        public override IEnumerable<Item> Execute(IEnumerable<Item> items)
+        public override IEnumerable<Item> Execute(Item[] items)
         {
             foreach (var item in items)
             {
