@@ -11,7 +11,8 @@ namespace PipelineLauncher.Demo.Tests
         public static void ProcessAndPrintResults<TInput, TOutput>(
             this IAwaitablePipelineRunner<TInput, TOutput> pipelineRunner,
             IEnumerable<TInput> items,
-            PipelineTestBase pipelineTest)
+            PipelineTestBase pipelineTest,
+            bool printInputItems = false)
         {
             // Start timer
             pipelineTest.StartTimer();
@@ -20,7 +21,7 @@ namespace PipelineLauncher.Demo.Tests
             var result = pipelineRunner.Process(items).ToArray();
 
             // Print elapsed time and result
-            pipelineTest.StopTimerAndPrintResult(result);
+            pipelineTest.StopTimerAndPrintResult(printInputItems ? (IEnumerable)items : result);
         }
 
         public static void ProcessAndPrintResults<TInput, TOutput>(
@@ -30,14 +31,7 @@ namespace PipelineLauncher.Demo.Tests
         {
             var (pipelineTest, pipelineRunner) = testAndRunner;
 
-            // Start timer
-            pipelineTest.StartTimer();
-
-            // Process items
-            var result = pipelineRunner.Process(items).ToArray();
-
-            // Print elapsed time and result
-            pipelineTest.StopTimerAndPrintResult(printInputItems ? (IEnumerable) items : result);
+            ProcessAndPrintResults(pipelineRunner, items, pipelineTest, printInputItems);
         }
     }
 }

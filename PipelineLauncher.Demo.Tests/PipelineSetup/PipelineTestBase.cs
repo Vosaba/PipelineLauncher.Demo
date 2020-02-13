@@ -52,17 +52,27 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup
 
         public void StopTimerAndPrintResult(IEnumerable items)
         {
-            var elapsedMilliseconds = StopTimerAndReturnElapsed();
-
-            WriteSeparator();
-            WriteLine($"Total elapsed milliseconds: {elapsedMilliseconds}");
-            WriteSeparator();
+            StopTimerAndPrintElapsedTime();
 
             foreach (var item in items)
             {
                 WriteLine(item);
             }
 
+            WriteSeparator();
+        }
+
+        public void PrintProcessed(object item)
+        {
+            WriteLine(item);
+        }
+
+        public void StopTimerAndPrintElapsedTime()
+        {
+            var elapsedMilliseconds = StopTimerAndReturnElapsed();
+
+            WriteSeparator();
+            WriteLine($"Total elapsed milliseconds: {elapsedMilliseconds}");
             WriteSeparator();
         }
 

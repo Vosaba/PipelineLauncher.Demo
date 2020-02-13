@@ -53,7 +53,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
                         item.Process(GetType());
                     }
 
-                    return (IEnumerable<Item>)items;
+                    return items.AsEnumerable();
                 })
                 .Stage<Stage>();
 
