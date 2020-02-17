@@ -25,17 +25,10 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
                 .Stage<Stage_Item2_To_Item, Item>()
                 .Stage<Stage_3>();
 
-
             // Make pipeline from stageSetup
             var pipelineRunner = pipelineSetup.Create();
 
-            var processedCount = 0;
-
-            // Post items and retrive WaitHandle
-            var waitHandle = (this, pipelineRunner)
-                .PostItemsAndPrintProcessed(items, x => StopExecutionCondtitionByTotalProcessed(ref processedCount));
-
-            waitHandle.WaitOne();
+            PostItemsAndPrintProcessedWithDefaultConditionToStop(pipelineRunner, items);
         }
     }
 }

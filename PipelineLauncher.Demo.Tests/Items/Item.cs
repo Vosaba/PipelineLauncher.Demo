@@ -11,6 +11,7 @@ namespace PipelineLauncher.Demo.Tests.Items
     {
         public List<(int ProcessId, Type StageType)> ProcessedBy { get; }
         public int Index { get; }
+        public string Name => $"{nameof(Item)}#{Index}";
 
         public Item(int index)
         {
@@ -32,7 +33,7 @@ namespace PipelineLauncher.Demo.Tests.Items
         public override string ToString()
         {
             var values = ProcessedBy.Select(x => $"{x.StageType.Name} : {x.ProcessId}").ToArray();
-            return $"{nameof(Item)}#{Index}: {{ {string.Join(" } -> { ", values)} }};";
+            return $"{Name}: {{ {string.Join(" } -> { ", values)} }};";
         }
 
         [DllImport("Kernel32.dll"), SuppressUnmanagedCodeSecurity]

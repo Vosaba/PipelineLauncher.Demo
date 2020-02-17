@@ -76,8 +76,8 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup
             WriteSeparator();
         }
 
-        private void WriteSeparator() => WriteLine(Separator);
-        private void WriteLine(object value) => WriteLine(value.ToString());
-        private void WriteLine(string value) => _output.WriteLine(value);
+        protected void WriteSeparator() => WriteLine(Separator);
+        protected void WriteLine(object value) => WriteLine(value.ToString());
+        protected void WriteLine(string value) => _output.WriteLine(value);
     }
 }
