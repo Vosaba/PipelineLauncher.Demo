@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using PipelineLauncher.Abstractions.Dto;
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Demo.Tests.Stages.Bulk;
 using PipelineLauncher.Demo.Tests.Stages.Single;
@@ -62,6 +63,33 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
             var pipelineRunner = pipelineSetup
                 .CreateAwaitable()
                 .SetupCancellationToken(cancellationTokenSource.Token);
+
+            // Process items and print result
+            (this, pipelineRunner).ProcessAndPrintResults(items, true);
+        }
+
+        [Fact]
+        public void Stages_DiagnosticHandler_On_PipelineCreator()
+        {
+            // Test input 6 items
+            List<Item> items = MakeItemsInput(6);
+
+            // Configure stages
+            var pipelineSetup = PipelineCreator
+                .WithDiagnostic((DiagnosticItem diagnosticItem) =>
+                {
+                    WriteLine($"{diagnosticItem.Input}");
+                })
+                .Stage<Stage, Item>()
+                .Stage<Stage_1>()
+                .Stage<Stage_Async>()
+                .Stage<Stage_Async_CancelationToken>()
+                .Stage<Stage_2>();
+
+
+            // Make pipeline from stageSetup
+            var pipelineRunner = pipelineSetup
+                .CreateAwaitable();
 
             // Process items and print result
             (this, pipelineRunner).ProcessAndPrintResults(items, true);

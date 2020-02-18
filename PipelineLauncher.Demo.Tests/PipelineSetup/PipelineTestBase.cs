@@ -11,7 +11,6 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup
     {
         private const string Separator = "--------------------";
         private readonly ITestOutputHelper _output;
-        private readonly Stopwatch _stopWatch = new Stopwatch();
 
         protected virtual IPipelineCreator PipelineCreator { get; } = new PipelineCreator();
 
@@ -37,23 +36,30 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup
 
             return input;
         }
-        
-        public void StartTimer()
+
+        public Stopwatch StartTimer()
         {
-            _stopWatch.Reset();
-            _stopWatch.Start();
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            return stopWatch;
         }
 
-        public long StopTimerAndReturnElapsed()
+        public long StopTimerAndReturnElapsed(Stopwatch stopWatch)
         {
-            _stopWatch.Stop();
-            return _stopWatch.ElapsedMilliseconds;
+            stopWatch.Stop();
+            return stopWatch.ElapsedMilliseconds;
         }
 
-        public void StopTimerAndPrintResult(IEnumerable items)
+        public void StopTimerAndPrintResult(IEnumerable items, Stopwatch stopWatch)
         {
-            StopTimerAndPrintElapsedTime();
+            StopTimerAndPrintElapsedTime(stopWatch);
 
+            PrintResult(items);
+        }
+
+        public void PrintResult(IEnumerable items)
+        {
             foreach (var item in items)
             {
                 WriteLine(item);
@@ -67,9 +73,9 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup
             WriteLine(item);
         }
 
-        public void StopTimerAndPrintElapsedTime()
+        public void StopTimerAndPrintElapsedTime(Stopwatch stopWatch)
         {
-            var elapsedMilliseconds = StopTimerAndReturnElapsed();
+            var elapsedMilliseconds = StopTimerAndReturnElapsed(stopWatch);
 
             WriteSeparator();
             WriteLine($"Total elapsed milliseconds: {elapsedMilliseconds}");

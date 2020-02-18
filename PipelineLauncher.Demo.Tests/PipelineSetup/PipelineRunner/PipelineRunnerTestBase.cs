@@ -12,12 +12,12 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
 
         public PipelineRunnerTestBase(ITestOutputHelper output) : base(output) { }
 
-        protected bool StopExecutionCondtitionByTotalProcessed(ref int totalProcessedCout)
+        protected bool StopExecutionConditionByTotalProcessed(ref int totalProcessedCount)
         {
-            return ++totalProcessedCout == DefaultItemsProcessedCount;
+            return ++totalProcessedCount == DefaultItemsProcessedCount;
         }
 
-        protected bool StopExecutionCondtitionByLastIndex<TOuput>(TOuput item) where TOuput : Item
+        protected bool StopExecutionConditionByLastIndex<TOutput>(TOutput item) where TOutput : Item
         {
             return item.Index == DefaultLastItemIndex;
         }
@@ -30,7 +30,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
 
             // Post items and retrieve WaitHandle
             var waitHandle = (this, pipelineRunner)
-                .PostItemsAndPrintProcessed(items, x => StopExecutionCondtitionByTotalProcessed(ref processedCount));
+                .PostItemsAndPrintProcessed(items, x => StopExecutionConditionByTotalProcessed(ref processedCount));
 
             waitHandle.WaitOne();
         }

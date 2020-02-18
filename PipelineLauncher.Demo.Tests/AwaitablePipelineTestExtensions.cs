@@ -15,13 +15,13 @@ namespace PipelineLauncher.Demo.Tests
             bool printInputItems = false)
         {
             // Start timer
-            pipelineTest.StartTimer();
+            var stopWatch = pipelineTest.StartTimer();
 
             // Process items
             var result = pipelineRunner.Process(items).ToArray();
 
             // Print elapsed time and result
-            pipelineTest.StopTimerAndPrintResult(printInputItems ? (IEnumerable)items : result);
+            pipelineTest.StopTimerAndPrintResult(printInputItems ? (IEnumerable)items : result, stopWatch);
         }
 
         public static void ProcessAndPrintResults<TInput, TOutput>(

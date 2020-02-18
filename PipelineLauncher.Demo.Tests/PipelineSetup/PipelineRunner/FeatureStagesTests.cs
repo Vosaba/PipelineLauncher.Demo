@@ -57,7 +57,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
         }
 
         [Fact]
-        public void Feature_Exception_Retry_Awaitable_Stages_wrongConfiguration()
+        public void Feature_Exception_Retry_Awaitable_Stages_WrongConfiguration()
         {
             // Test input 6 items
             List<Item> items = MakeItemsInput(6);
@@ -107,22 +107,12 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
 
             // Configure stages
             var pipelineSetup = PipelineCreator
-                .WithExceptionHandler((ExceptionItemsEventArgs args) =>
-                {
-                    var item = args.Items[0];
-
-                    WriteSeparator();
-                    WriteLine($"{item} with exception {args.Exception.Message}");
-                    WriteSeparator();
-
-                    args.Retry();
-                })
                 .Stage<Stage, Item>()
                 .Stage(item =>
                 {
                     item.Process(GetType());
 
-                    if (item.Index == 2 && errorsCount++ < 2)
+                    if (item.Index == 2 && errorsCount++ < 1)
                     {
                         throw new Exception($"{item.Name} throw exception: #'{errorsCount}'");
                     }
@@ -133,6 +123,16 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
 
             // Make pipeline from stageSetup
             var pipelineRunner = pipelineSetup.CreateAwaitable();
+                //.SetupExceptionHandler((ExceptionItemsEventArgs args) =>
+                //{
+                //    var item = args.Items[0];
+
+                //    WriteSeparator(); 
+                //    WriteLine($"{item} with exception {args.Exception.Message}");
+                //    WriteSeparator();
+
+                //    args.Retry();
+                //});
 
             pipelineRunner.ExceptionItemsReceivedEvent += (ExceptionItemsEventArgs args) =>
             {

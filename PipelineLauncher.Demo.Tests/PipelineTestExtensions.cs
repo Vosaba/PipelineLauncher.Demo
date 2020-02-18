@@ -5,6 +5,7 @@ using PipelineLauncher.Demo.Tests.PipelineSetup;
 using System.Collections;
 using System.Threading;
 using System;
+using System.Diagnostics;
 
 namespace PipelineLauncher.Demo.Tests
 {
@@ -18,14 +19,14 @@ namespace PipelineLauncher.Demo.Tests
         {
             var cancellationTokenSource = new CancellationTokenSource();
             // Start timer
-            pipelineTest.StartTimer();
+            var stopWatch = pipelineTest.StartTimer();
 
             // Setup cancellationToken for finalize Pipeline execution
             pipelineRunner.SetupCancellationToken(cancellationTokenSource.Token);
 
             // Subscribe for processed items
             pipelineRunner.ItemReceivedEvent +=
-                x => PipelineRunner_ItemReceivedEvent(x, pipelineTest, cancellationTokenSource, stopExecutionCondition);
+                x => PipelineRunner_ItemReceivedEvent(x, pipelineTest, cancellationTokenSource, stopExecutionCondition, stopWatch);
 
             // Post items
             pipelineRunner.Post(items);
@@ -48,7 +49,8 @@ namespace PipelineLauncher.Demo.Tests
             TOutput item,
             PipelineTestBase pipelineTest,
             CancellationTokenSource cancellationTokenSource,
-            Func<TOutput, bool> stopExecutionCondition)
+            Func<TOutput, bool> stopExecutionCondition,
+            Stopwatch stopWatch)
         {
             pipelineTest.PrintProcessed(item);
 
@@ -56,7 +58,7 @@ namespace PipelineLauncher.Demo.Tests
             {
                 cancellationTokenSource.Cancel();
 
-                pipelineTest.StopTimerAndPrintElapsedTime();
+                pipelineTest.StopTimerAndPrintElapsedTime(stopWatch);
             }
         }
     }
