@@ -69,27 +69,33 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
         }
 
         [Fact]
-        public void Stages_DiagnosticHandler_On_PipelineCreator()
+        public void Stages_DiagnosticEvent()
         {
-            // Test input 6 items
-            List<Item> items = MakeItemsInput(6);
+            // Test input 3 items
+            List<Item> items = MakeItemsInput(3);
 
             // Configure stages
             var pipelineSetup = PipelineCreator
-                .WithDiagnostic((DiagnosticItem diagnosticItem) =>
+                .WithDiagnostic(diagnosticItem =>
                 {
-                    WriteLine($"{diagnosticItem.Input}");
+                    var itemsNames = diagnosticItem.Items.Cast<Item>().Select(x => x.Name).ToArray();
+                    var message = $"Stage: {diagnosticItem.StageType.Name} | Items: {{ {string.Join(" }; { ", itemsNames)} }} | State: {diagnosticItem.State}";
+
+                    if (!string.IsNullOrEmpty(diagnosticItem.Message))
+                    {
+                        message += $" | Message: {diagnosticItem.Message}";
+                    }
+
+                    WriteLine(message);
                 })
                 .Stage<Stage, Item>()
-                .Stage<Stage_1>()
-                .Stage<Stage_Async>()
-                .Stage<Stage_Async_CancelationToken>()
+                .Stage<Stage_1>(x => x.Index == 2 ? PredicateResult.Skip: PredicateResult.Keep)
+                .BulkStage<BulkStage>(x => x.Index == 2 ? PredicateResult.Skip : PredicateResult.Keep)
                 .Stage<Stage_2>();
 
 
             // Make pipeline from stageSetup
-            var pipelineRunner = pipelineSetup
-                .CreateAwaitable();
+            var pipelineRunner = pipelineSetup.CreateAwaitable();
 
             // Process items and print result
             (this, pipelineRunner).ProcessAndPrintResults(items, true);

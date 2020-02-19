@@ -1,7 +1,5 @@
-﻿using PipelineLauncher.Abstractions.PipelineStage.Configurations;
-using PipelineLauncher.Demo.Tests.Items;
+﻿using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Stages;
-using System.Threading;
 
 namespace PipelineLauncher.Demo.Tests.Stages.Single
 {
