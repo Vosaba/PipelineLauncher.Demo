@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using PipelineLauncher.Abstractions.PipelineStage.Configurations;
+using PipelineLauncher.Demo.Tests.Extensions;
 using PipelineLauncher.Demo.Tests.Items;
-using PipelineLauncher.Demo.Tests.Stages.Bulk;
 using PipelineLauncher.Demo.Tests.Stages.Single;
 using PipelineLauncher.Stages;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
+namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner
 {
     public class LambdaStagesTests : PipelineTestBase
     {
@@ -135,7 +135,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
                 },
                 new BulkStageConfiguration
                 {
-                    BatchItemsCount = 3
+                    BatchSize = 3
                 })
                 .Stage<Stage_1>();
 

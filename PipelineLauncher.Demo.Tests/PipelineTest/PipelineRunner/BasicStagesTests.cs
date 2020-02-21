@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PipelineLauncher.Demo.Tests.Extensions;
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Demo.Tests.Stages.Bulk;
 using PipelineLauncher.Demo.Tests.Stages.Single;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PipelineLauncher.Demo.Tests.PipelineSetup.AwaitablePipelineRunner
+namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner
 {
     public class BasicStagesTests : PipelineTestBase
     {

@@ -1,16 +1,17 @@
-﻿using PipelineLauncher.Abstractions.PipelineEvents;
+﻿using System;
+using System.Collections.Generic;
+using PipelineLauncher.Abstractions.PipelineEvents;
+using PipelineLauncher.Demo.Tests.Extensions;
 using PipelineLauncher.Demo.Tests.Items;
 using PipelineLauncher.Demo.Tests.Stages.Single;
 using PipelineLauncher.Exceptions;
-using System;
-using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace PipelineLauncher.Demo.Tests.PipelineSetup.PipelineRunner
+namespace PipelineLauncher.Demo.Tests.PipelineTest.NonAwaitablePipelineRunner
 {
 
-    public class FeatureStagesTests : PipelineRunnerTestBase
+    public class FeatureStagesTests : NonAwaitableTestBase
     {
         public FeatureStagesTests(ITestOutputHelper output) : base(output) { }
 
