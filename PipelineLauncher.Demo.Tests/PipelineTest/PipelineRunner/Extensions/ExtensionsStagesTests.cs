@@ -28,7 +28,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner.Extensions
                 .DoNothing()
                 .Stage(new Stage_3())
                 .ExtensionContext(extension => extension.GetHashCode(1995))
-                .GetString("19", "95");
+                .GetString("19_", "_95");
 
 
             // Make pipeline from stageSetup
