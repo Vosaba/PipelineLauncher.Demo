@@ -94,6 +94,44 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner
             // Process items and print result
             (this, pipelineRunner).ProcessAndPrintResults(items);
         }
+
+        [Fact]
+        public void Merge_Pipelines()
+        {
+            // Test input 6 items
+            List<Item> items = MakeItemsInput(6);
+
+            // Configure stages for the first PipelineSetup
+            var pipelineSetup = PipelineCreator
+                .Stage<Stage, Item>()
+                .Stage<Stage_1>();
+
+            // Configure stages for the second PipelineSetup
+            var pipelineSetup2 = PipelineCreator
+                .Stage<Stage_2, Item>()
+                .Stage<Stage_3>();
+
+            // Configure stages for the third PipelineSetup
+            var pipelineSetup3 = PipelineCreator
+                .Stage<Stage_4, Item>()
+                .Stage<Stage_5>();
+
+            // Merge all pipelines setup 
+            var mergedPipelineSetup = pipelineSetup.MergeWith(pipelineSetup2).MergeWith(pipelineSetup3);
+
+
+            // Make pipeline from mergedPipelineSetup
+            var pipelineRunner = mergedPipelineSetup.CreateAwaitable();
+
+            // Process items and print result
+            (this, pipelineRunner).ProcessAndPrintResults(items);
+
+
+            // Make pipeline from first PipelineSetup
+            var pipelineRunner1 = pipelineSetup.CreateAwaitable();
+
+            // Process items and print result
+            (this, pipelineRunner1).ProcessAndPrintResults(items);
+        }
     }
 }
-;

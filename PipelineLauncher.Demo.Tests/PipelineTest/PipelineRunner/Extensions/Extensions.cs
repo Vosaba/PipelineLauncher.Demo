@@ -19,5 +19,22 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner.Extensions
         {
             return pipelineSetup.Stage(x => x);
         }
+
+        public static IPipelineSetup<TInput, Contextual<TOutput, TContext>> MakeContext<TInput, TOutput, TContext>(this IPipelineSetup<TInput, TOutput> pipelineSetup, TContext context)
+        {
+            return pipelineSetup.Stage(x => new Contextual<TOutput, TContext>(x, context));
+        }
+    }
+
+    public class Contextual<TItem, TContext>
+    {
+        public TItem Item { get; set; }
+        public TContext Context { get; set; }
+
+        public Contextual(TItem item, TContext context)
+        {
+            Item = item;
+            Context = context;
+        }
     }
 }
