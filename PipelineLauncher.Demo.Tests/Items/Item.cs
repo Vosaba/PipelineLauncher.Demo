@@ -30,6 +30,8 @@ namespace PipelineLauncher.Demo.Tests.Items
             ProcessedBy.Add((Thread.CurrentThread.ManagedThreadId, stageType));
         }
 
+        public bool IsProcessedBy(Type stageType) => ProcessedBy.Any(x => x.StageType == stageType);
+
         public override string ToString()
         {
             var values = ProcessedBy.Select(x => $"{x.StageType.Name} : {x.ProcessId}").ToArray();

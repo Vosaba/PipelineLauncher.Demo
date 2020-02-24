@@ -117,7 +117,9 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner
                 .Stage<Stage_5>();
 
             // Merge all pipelines setup 
-            var mergedPipelineSetup = pipelineSetup.MergeWith(pipelineSetup2).MergeWith(pipelineSetup3);
+            var mergedPipelineSetup = pipelineSetup
+                .MergeWith(pipelineSetup2)
+                .MergeWith(pipelineSetup3);
 
 
             // Make pipeline from mergedPipelineSetup
@@ -125,13 +127,6 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner
 
             // Process items and print result
             (this, pipelineRunner).ProcessAndPrintResults(items);
-
-
-            // Make pipeline from first PipelineSetup
-            var pipelineRunner1 = pipelineSetup.CreateAwaitable();
-
-            // Process items and print result
-            (this, pipelineRunner1).ProcessAndPrintResults(items);
         }
     }
 }
