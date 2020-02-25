@@ -127,7 +127,6 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner.DemoSamples
             }
         }
     }
-
     public class BulkStage_2 : BulkStage<Item>
     {
         public override IEnumerable<Item> Execute(Item[] items)
@@ -195,7 +194,7 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner.DemoSamples
         public void ComplexArchitecture()
         {
             // Test input 6 items
-            List<Item> items = MakeItemsInput(11);
+            List<Item> items = MakeItemsInput(10);
 
             var indexesForBranch1 = new[] { 2, 5 };
             var indexesForBranch2 = new[] { 6, 8, 4 };
@@ -233,35 +232,31 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest.PipelineRunner.DemoSamples
             // Make pipeline from stageSetup
             var pipelineRunner = pipelineSetup.CreateAwaitable();
 
+            // Setup instant exception handler
             pipelineRunner.SetupInstantExceptionHandler(args =>
             {
                 var itemsNames = args.Items.Cast<Item>().Select(x => x.Name).ToArray();
-                var message = $"Stage: {args.StageType.Name} | Items: {{ {string.Join(" }; { ", itemsNames)} }} | Exception: {args.Exception.Message}";
+                var message = $"Items: {{ {string.Join(" }; { ", itemsNames)} }} | Stage: {args.StageType.Name} | Exception: {args.Exception.Message}";
 
                 WriteLine(message);
-                WriteSeparator();
 
                 if (args.StageType == typeof(BulkStage_3))
                 {
+                    WriteLine();
+                    WriteLine("Items will be retried!");
                     args.Retry();
                 }
+
+                WriteSeparator();
             });
 
-            pipelineRunner.ExceptionItemsReceivedEvent += args =>
-            {
-                var itemsNames = args.Items.Cast<Item>().Select(x => x.Name).ToArray();
-                var message = $"Stage: {args.StageType.Name} | Items: {{ {string.Join(" }; { ", itemsNames)} }} | Exception: {args.Exception.Message}";
-
-                WriteLine(message);
-                WriteSeparator();
-            };
-
+            // Subscribe for skipped or removed items
             pipelineRunner.SkippedItemReceivedEvent += args =>
             {
                 var item = args.Item;
 
+                WriteLine($"{item} is skipped or removed by {args.StageType.Name}");
                 WriteSeparator();
-                WriteLine($"{item} is skipped or removed from {args.StageType.Name}");
             };
 
             // Process items and print result

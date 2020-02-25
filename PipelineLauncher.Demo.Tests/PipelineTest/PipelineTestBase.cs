@@ -77,13 +77,13 @@ namespace PipelineLauncher.Demo.Tests.PipelineTest
         {
             var elapsedMilliseconds = StopTimerAndReturnElapsed(stopWatch);
 
-            WriteSeparator();
+            //WriteSeparator();
             WriteLine($"Total elapsed milliseconds: {elapsedMilliseconds}");
             WriteSeparator();
         }
 
         protected void WriteSeparator() => WriteLine(Separator);
         protected void WriteLine(object value) => WriteLine(value.ToString());
-        protected void WriteLine(string value) => _output.WriteLine(value);
+        protected void WriteLine(string value = "") => _output.WriteLine(value);
     }
 }

@@ -16,7 +16,7 @@ namespace PipelineLauncher.Demo.Tests.Items
         public override string ToString()
         {
             var values = _item.ProcessedBy.Select(x => $"{x.StageType.Name} : {x.ProcessId}").ToArray();
-            return $"{nameof(Item3)}#{_item.Index}: {{ {string.Join(" } -> { ", values)} }};";
+            return $"{nameof(Item3)} #{_item.Index}: {{ {string.Join(" } -> { ", values)} }};";
         }
     }
 }

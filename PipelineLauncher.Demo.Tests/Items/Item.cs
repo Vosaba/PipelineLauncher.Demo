@@ -11,7 +11,7 @@ namespace PipelineLauncher.Demo.Tests.Items
     {
         public List<(int ProcessId, Type StageType)> ProcessedBy { get; }
         public int Index { get; }
-        public string Name => $"{nameof(Item)}#{Index}";
+        public string Name => $"{nameof(Item)} #{Index}";
 
         public Item(int index)
         {
